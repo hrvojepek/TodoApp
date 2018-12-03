@@ -1,0 +1,60 @@
+<div class="container">
+  <h2>TODO</h2>
+  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates et sequi officia asperiores,
+     dignissimos iste rem quis voluptate architecto id! </p>
+    <hr>
+
+
+    <form #f="ngForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-xs-12 col-12 col-md-12 col-lg-12 form-group">
+                <div class="form-group">
+                  <div class="input-group">
+    
+                    <input type="text"
+                     class="form-control"
+                      ngModel 
+                      name="todo"
+                      placeholder="Enter Todo"
+                      required>
+                        
+                    <div class="input-group-btn">
+                        <input type="text"
+                        placeholder="Date"
+                        ngModel
+                        [minDate]="currentDate"
+                        name="date"
+                        class="form-control"
+                        required
+                        bsDatepicker>                
+                      </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-sm-2">
+                  <button type="submit" [disabled]="!f.valid" class="add btn btn-primary">Add</button>
+              </div>
+        </div>
+    </form>
+   
+    
+<div >
+  <!-- <div class="container" *ngIf="(currentDate| date:'dd-MM-yyyy-EEE' )==(todo.date | date:'dd-MM-yyyy-EEE')"> -->
+      <h1 *ngIf="todos!=null" class="my">MY TODOS:</h1>
+      <!-- <ul class="list-group" *ngFor="let todo of (todos | sortDate); let i=index"> -->
+              <ul class="list-group" *ngFor="let todo of (todos | sortDate); let i=index">
+
+        <li (click)="openModal(modal)" (click)="emmitId(i)" class="list-group-item">{{todo.todo}}</li>
+      </ul>
+  <!-- </div> -->
+  
+  
+ 
+</div>
+
+
+  <ng-template #modal>
+   <app-modal></app-modal>   
+  </ng-template>
+
+</div>
