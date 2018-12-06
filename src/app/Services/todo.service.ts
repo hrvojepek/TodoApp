@@ -41,9 +41,9 @@ export class TodoService {
     const token = this.authService.getToken();
     this.http
       .get("https://todo-a5bcb.firebaseio.com/data.json")
-
       .subscribe((todos: Todo[]) => {
         for(let todo of todos){
+          todo.date=new Date(todo.date);
           this.todos.push(todo);
           console.log("return",todo)
         }
