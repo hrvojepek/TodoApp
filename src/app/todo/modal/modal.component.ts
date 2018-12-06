@@ -1,47 +1,42 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import {TodoService} from '../../Services/todo.service';
-import {Todo} from '../todo.model';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { TodoService } from "../../Services/todo.service";
+import { Todo } from "../todo.model";
+import { NgForm, FormGroup, FormControl } from "@angular/forms";
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css']
+  selector: "app-modal",
+  templateUrl: "./modal.component.html",
+  styleUrls: ["./modal.component.css"]
 })
 export class ModalComponent implements OnInit {
+  @Input() id: number;
+  editForm: FormGroup;
+  currentDate = new Date();
+  minDate = this.currentDate;
 
- 
-   @ViewChild("e") editForm:NgForm;
-  currentDate=new Date();
-  minDate=this.currentDate;
-  id:number;
-  editTodo:Todo;
-  constructor(private todoService:TodoService) { }
+  editTodo: Todo;
+  constructor(private todoService: TodoService) {}
 
   ngOnInit() {
-    console.log("eeeeee");
-    this.todoService.index.subscribe(
-      (id:number)=>{
-        this.editTodo=this.todoService.getTodo(id);
-        this.id=id;
-        console.log(this.id+"jel taj");
+    console.log(this.id);
 
-        console.log(this.editTodo);
-        this.editForm.value.todo=this.editTodo.todo;
-        this.editForm.value.date=this.editTodo.date;
+    this.editTodo = this.todoService.getTodo(this.id);
 
-      }
-    );
-      
-      
+    console.log(this.editTodo);
+
+    this.editForm = new FormGroup({
+      todo: new FormControl(this.editTodo.todo),
+      date: new FormControl(this.editTodo.date)
+    });
   }
-  onDelete(){
+  onDelete() {
     this.todoService.deleteTodo(this.id);
   }
-  onEdit(){
-    this.todoService.updateTodo(this.id, this.editForm.value);
+  onEdit() {
+    const value=this.editForm.value;
+   const todo:string=value.todo;
+   const date:Date=value.date;
+    this.todoService.updateTodo(this.id, todo, date);
+    
   }
-
-
-
 }

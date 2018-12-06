@@ -1,41 +1,54 @@
 <div class="modal-header">
-    <h4 class="modal-title pull-left">Edit</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modal.close()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form #e="ngForm" (ngSubmit)="onEdit()">
-        <div class="row">
-            <div class="col-xs-12 col-12 col-md-12 col-lg-12 form-group">
-                <div class="form-group">
-                  <div class="input-group">
-    
-                    <input type="text"
-                     class="form-control"
-                      
-                      name="todo"
-                      ngModel
-                      required>
-                        
-                    <div class="input-group-btn">
-                        <input type="text"
-                        
-                        [minDate]="currentDate"
-                        name="date"
-                        class="form-control"
-                        required
-                        ngModel
-                        bsDatepicker>                
-                      </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-3 col-sm-3 col-sm-2">
-                  <button type="submit" [disabled]="!e.valid" class="add btn btn-primary">Update</button>
-                  <button type="button" [disabled]="!e.valid" class="add btn btn-danger" (click)="onDelete()" >Delete</button>
-              </div>
-              </div>
-    </form>
-    
+  <h4 class="modal-title pull-left">Edit</h4>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="modal.close()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="editForm" (ngSubmit)="onEdit()">
+    <div class="row">
+      <div class="col-xs-12 col-12 col-md-12 col-lg-12 form-group">
+        <div class="form-group">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              name="todo"
+              formControlName="todo"
+              required
+            />
+
+            <div class="input-group-btn">
+              <input
+                type="text"
+                [minDate]="currentDate"
+                name="date"
+                class="form-control"
+                required
+                formControlName="date"               
+                bsDatepicker
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-2 col-sm-2">
+        <button type="submit" [disabled]="!editForm.valid" class="add btn btn-primary float-left">
+          Update
+        </button>
+        <button
+          type="button"
+          [disabled]="!editForm.valid"
+          class="add btn btn-danger float-left"
+          (click)="onDelete()">
+          Delete
+        </button>
+      </div>
     </div>
+  </form>
+</div>

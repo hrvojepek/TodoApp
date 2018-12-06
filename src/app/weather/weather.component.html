@@ -4,20 +4,46 @@
   <input type="text" #name class="form-control">
 <button class="btn btn-primary" (click)="getWeather(name)">Search</button>
 <div >
-<div class="row" >
+<!-- <div class="row" >
   <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let f of forecast.list; let i=index">
       <div class="card" *ngIf="i<5">
           <div class="card-body">
-            <h4 class="card-title"> {{(i==0)?'Today':(forecast.list[i].dt_txt|date:'dd.MM')}}  </h4>
+            <h4 *ngIf="i==0" class="card-title"> Today </h4>
+            <h4 *ngIf="i==1" class="card-title"> Tomorrow  </h4>
+            <h4 *ngIf="i>1" class="card-title"> {{(forecast.list[i].dt_txt|date:'EEEE')}}  </h4>
+
+
             <hr>
             <h5 class="card-subtitle mb-2 ">{{(i==0)?'Current temperature: '+forecast.list[i].main.temp:''}}<i *ngIf="i==0">&#8451;</i></h5>
             <h6 class="card-subtitle mb-2">Maximal temperature:{{forecast.list[i].main.temp_max}}<i>&#8451;</i></h6>
+            <img [src]="'http://openweathermap.org/img/w/'+forecast.list[i].weather[0].icon+'.png'">
             <h6 class="card-subtitle mb-2">Minimal temperature:{{forecast.list[i].main.temp_min}}<i>&#8451;</i></h6>
            
           </div>
         </div>
   </div>
-</div>
-</div>
+</div> -->
+<carousel  >
+  <slide *ngFor="let f of forecast.list|slice:0:5; let i=index">
+      <div class="card" *ngIf="i<5">
+          <div class="card-body">
+            <h4 *ngIf="i==0" class="card-title"> Today </h4>
+            <h4 *ngIf="i==1" class="card-title"> Tomorrow  </h4>
+            <h4 *ngIf="i>1" class="card-title"> {{(forecast.list[i].dt_txt|date:'EEEE')}}  </h4>
+            <hr>
+            <img [src]="'http://openweathermap.org/img/w/'+forecast.list[i].weather[0].icon+'.png'">
 
+  
+            
+            <h5 class="card-subtitle mb-2 ">{{(i==0)?'Current temperature: '+forecast.list[i].main.temp:''}}<i *ngIf="i==0">&#8451;</i></h5>
+            <h6 class="card-subtitle mb-2">Maximal temperature:{{forecast.list[i].main.temp_max}}<i>&#8451;</i></h6>
+            <h6 class="card-subtitle mb-2">Minimal temperature:{{forecast.list[i].main.temp_min}}<i>&#8451;</i></h6>
+            <h6 class="card-subtitle mb-2">Weather:{{forecast.list[i].weather[0].main}}</h6>
+
+          </div>
+          </div>
+  </slide>
+</carousel>
+</div>
+<app-spinner *ngIf="spin==true"></app-spinner>
 </div>

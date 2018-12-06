@@ -13,7 +13,7 @@ export class SortDatePipe implements PipeTransform {
 
   transform(todos:Todo[]): Todo[] {
     this.todoService.sort();
-    return this.todoService.todos;
+    return this.todoService.todos || [];
   }
 
 }

@@ -7,3 +7,14 @@ input{
 button{
     margin-top:10px;
 }
+.card{
+    background-color:rgb(90, 87, 87);
+    opacity:0.7;
+    color:white;
+    text-align:center;
+    padding-bottom:20px;
+    padding-top:20px;
+}
+hr{
+    border:1px solid white;
+}

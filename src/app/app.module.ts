@@ -7,10 +7,14 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from './Services/auth.service';
 import { AuthGuard } from './Services/auth-guard';
-import { TodoModule } from './todo/todo.module';
 import { WeatherModule } from './weather/weather.module';
-import { AuthModule } from '../auth.module';
-import { TodoService } from './Services/todo.service';
+import { AuthModule } from './auth.module';
+import { HttpClientModule } from '@angular/common/http';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+
+
+
 
 @NgModule({
   declarations: [
@@ -20,11 +24,14 @@ import { TodoService } from './Services/todo.service';
   imports: [
     BrowserModule,
     FormsModule,  
+    HttpClientModule,
     WeatherModule,
     AuthModule,
-    AppRoutingModule
+    AppRoutingModule,
+    PaginationModule.forRoot(),
+    CarouselModule.forRoot()
   ],
-  providers: [ AuthService, AuthGuard, TodoService],
+  providers: [ AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

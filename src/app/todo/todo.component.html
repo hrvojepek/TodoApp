@@ -17,6 +17,7 @@
                       name="todo"
                       placeholder="Enter Todo"
                       required>
+                      
                         
                     <div class="input-group-btn">
                         <input type="text"
@@ -29,6 +30,8 @@
                         bsDatepicker>                
                       </div>
                   </div>
+                  <span [ngStyle]="{'color':'red'}" *ngIf="!f.valid && f.touched">Form not valid</span>
+
                 </div>
               </div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-sm-2">
@@ -39,22 +42,26 @@
    
     
 <div >
-  <!-- <div class="container" *ngIf="(currentDate| date:'dd-MM-yyyy-EEE' )==(todo.date | date:'dd-MM-yyyy-EEE')"> -->
-      <h1 *ngIf="todos!=null" class="my">MY TODOS:</h1>
-      <!-- <ul class="list-group" *ngFor="let todo of (todos | sortDate); let i=index"> -->
-              <ul class="list-group" *ngFor="let todo of (todos | sortDate); let i=index">
+      <h1 *ngIf="todos.length!=0" class="my">MY TODOS:</h1>
+              <ul class="list-group" *ngFor="let todo of (todos|sortDate |paginate: { id: 'foo',
+              itemsPerPage: 2,
+              currentPage: p }); let i=index">
 
-        <li (click)="openModal(modal)" (click)="emmitId(i)" class="list-group-item">{{todo.todo}}</li>
+        <li class="list-group-item">{{todo.todo}}<button (click)="openModal(modal ,todo.key)" class="btn btn-primary float-right">Edit</button></li>
+        <span *ngIf="todo.date.getDate()==currentDate.getDate()" class="badge badge-success">Today</span>
+        <span *ngIf="todo.date.getDate()!=currentDate.getDate()" class="badge badge-primary">{{todo.date|date:"dd/MM/yyyy"}}</span>
       </ul>
-  <!-- </div> -->
-  
   
  
+</div>
+<div class="pagin">
+    <pagination-controls *ngIf="todos.length!=0" id="foo" (pageChange)="p = $event"></pagination-controls>
+
 </div>
 
 
   <ng-template #modal>
-   <app-modal></app-modal>   
+   <app-modal [id]="key"></app-modal>   
   </ng-template>
 
 </div>
