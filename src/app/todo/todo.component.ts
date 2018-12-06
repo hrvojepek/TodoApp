@@ -29,13 +29,12 @@ export class TodoComponent implements OnInit {
     //this.todoService.fetchTodos();
     this.todos = this.todoService.returnTodo();
     
-    this.paginateTodos = this.todos.slice(0, 1);
   }
   onSubmit() {
     const value=this.todoForm.value;
     const tmpTodo:Todo=new Todo(value.todo, value.date, Math.floor(Math.random() * 100))
     this.todoService.pushTodo(tmpTodo);
-    this.todoService.saveTodos();
+    this.todoService.putTodosDb(tmpTodo);
     console.log(this.todos);
     this.todoForm.reset();
   }
@@ -45,9 +44,5 @@ export class TodoComponent implements OnInit {
     console.log(id);
     this.modal = this.modalService.show(modal);
   }
-  // pageChanged(event: PageChangedEvent): void {
-  //   const startItem = (event.page - 1) * event.itemsPerPage;
-  //   const endItem = event.page * event.itemsPerPage;
-  //   this.paginateTodos = this.todos.slice(startItem, endItem);
-  // }
+ 
 }

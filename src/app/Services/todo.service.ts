@@ -40,7 +40,7 @@ export class TodoService {
   fetchTodos() {
     const token = this.authService.getToken();
     this.http
-      .get("https://todo-a5bcb.firebaseio.com/todos.json")
+      .get("https://todo-a5bcb.firebaseio.com/data.json")
       .pipe(
         map((res: Todo[]) => {
           const todo: Todo[] = res;
@@ -53,15 +53,14 @@ export class TodoService {
       });
   }
 
-  saveTodos() {
-    let a:Todo[]=this.returnTodo();
-    console.log("returned todos", a);
-    const token = this.authService.getToken();
-    return this.http.put(
-      "https://todo-a5bcb.firebaseio.com/todos.json",
-      this.returnTodo()
+  
+  putTodosDb(todo:Todo){
+    this.http.put("https://todo-a5bcb.firebaseio.com/data.json", todo)
+    .subscribe(
+      (data)=>{
+        console.log("putt", data)
+      }
     )
-    
   }
 
   deleteTodo(i: number) {

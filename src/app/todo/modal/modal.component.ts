@@ -15,7 +15,7 @@ export class ModalComponent implements OnInit {
   minDate = this.currentDate;
 
   editTodo: Todo;
-  constructor(private todoService: TodoService) {}
+  constructor(private todoService: TodoService,) {}
 
   ngOnInit() {
     console.log(this.id);
@@ -37,6 +37,7 @@ export class ModalComponent implements OnInit {
    const todo:string=value.todo;
    const date:Date=value.date;
     this.todoService.updateTodo(this.id, todo, date);
+    this.todoService.putTodosDb(this.editForm.value);
     
   }
 }
