@@ -41,21 +41,19 @@ export class TodoService {
     const token = this.authService.getToken();
     this.http
       .get("https://todo-a5bcb.firebaseio.com/data.json")
-      .pipe(
-        map((res: Todo[]) => {
-          const todo: Todo[] = res;
-          return todo;
-        })
-        
-      )
-      .subscribe((todo: Todo[]) => {
-        this.todos = todo;
+
+      .subscribe((todos: Todo[]) => {
+        for(let todo of todos){
+          this.todos.push(todo);
+          console.log("return",todo)
+        }
+         
       });
   }
 
   
   putTodosDb(todo:Todo){
-    this.http.put("https://todo-a5bcb.firebaseio.com/data.json", todo)
+    this.http.put("https://todo-a5bcb.firebaseio.com/data.json", this.returnTodo())
     .subscribe(
       (data)=>{
         console.log("putt", data)
@@ -73,13 +71,12 @@ export class TodoService {
     })
     
   }
-  updateTodo(i: number, _todo: string, _date:Date) {
+  updateTodo(key: number, _todo:Todo) {
     var k;
     this.todos.forEach((todo, id)=>{
-      if(todo.key==i){
+      if(todo.key==key){
         k=id;
-        this.todos[k].todo=_todo;
-        this.todos[k].date=_date
+        this.todos[k]=_todo
       }
     })
     

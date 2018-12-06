@@ -31,13 +31,18 @@ export class ModalComponent implements OnInit {
   }
   onDelete() {
     this.todoService.deleteTodo(this.id);
+    const value=this.editForm.value;
+    this.editTodo.todo=value.todo;
+    this.editTodo.date=value.date;
+    this.todoService.putTodosDb(this.editTodo);
+
   }
   onEdit() {
     const value=this.editForm.value;
-   const todo:string=value.todo;
-   const date:Date=value.date;
-    this.todoService.updateTodo(this.id, todo, date);
-    this.todoService.putTodosDb(this.editForm.value);
+    this.editTodo.todo=value.todo;
+    this.editTodo.date=value.date;
+    this.todoService.updateTodo(this.id, this.editTodo);
+    this.todoService.putTodosDb(this.editTodo);
     
   }
 }

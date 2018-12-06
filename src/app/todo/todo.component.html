@@ -48,8 +48,8 @@
               currentPage: p }); let i=index">
 
         <li class="list-group-item">{{todo.todo}}<button (click)="openModal(modal ,todo.key)" class="btn btn-primary float-right">Edit</button></li>
-        <span *ngIf="todo.date.getDate()==currentDate.getDate()" class="badge badge-success">Today</span>
-        <span *ngIf="todo.date.getDate()!=currentDate.getDate()" class="badge badge-primary">{{todo.date|date:"dd/MM/yyyy"}}</span>
+        <span *ngIf="todo.date==currentDate" class="badge badge-success">Today</span>
+        <span *ngIf="todo.date!=currentDate" class="badge badge-primary">{{todo.date|date:"dd/MM/yyyy"}}</span>
       </ul>
   
  
