@@ -28,11 +28,10 @@ export class TodoComponent implements OnInit {
   ngOnInit() {
     this.todos = this.todoService.returnTodo();
     this.todoService.fetchTodos();
-  
 
     
   }
-  onSubmit() {
+ onSubmit() {
     const value=this.todoForm.value;
     const tmpTodo:Todo=new Todo(value.todo, value.date, Math.floor(Math.random() * 100))
     this.todoService.pushTodo(tmpTodo);

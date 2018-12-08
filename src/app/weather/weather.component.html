@@ -3,42 +3,27 @@
   <h2>Enter name of the city</h2>
   <input type="text" #name class="form-control">
 <button class="btn btn-primary" (click)="getWeather(name)">Search</button>
+<button class="btn btn-primary" (click)="getWeatherLocation()">Your location forecast</button>
+
 <div >
-<!-- <div class="row" >
-  <div class="col-md-4 col-sm-6 col-xs-12" *ngFor="let f of forecast.list; let i=index">
-      <div class="card" *ngIf="i<5">
-          <div class="card-body">
-            <h4 *ngIf="i==0" class="card-title"> Today </h4>
-            <h4 *ngIf="i==1" class="card-title"> Tomorrow  </h4>
-            <h4 *ngIf="i>1" class="card-title"> {{(forecast.list[i].dt_txt|date:'EEEE')}}  </h4>
 
-
-            <hr>
-            <h5 class="card-subtitle mb-2 ">{{(i==0)?'Current temperature: '+forecast.list[i].main.temp:''}}<i *ngIf="i==0">&#8451;</i></h5>
-            <h6 class="card-subtitle mb-2">Maximal temperature:{{forecast.list[i].main.temp_max}}<i>&#8451;</i></h6>
-            <img [src]="'http://openweathermap.org/img/w/'+forecast.list[i].weather[0].icon+'.png'">
-            <h6 class="card-subtitle mb-2">Minimal temperature:{{forecast.list[i].main.temp_min}}<i>&#8451;</i></h6>
-           
-          </div>
-        </div>
-  </div>
-</div> -->
 <carousel  >
-  <slide *ngFor="let f of forecast.list|slice:0:5; let i=index">
-      <div class="card" *ngIf="i<5">
+  <slide *ngFor="let f of forecast; let i=index">
+      <div class="card">
           <div class="card-body">
             <h4 *ngIf="i==0" class="card-title"> Today </h4>
             <h4 *ngIf="i==1" class="card-title"> Tomorrow  </h4>
-            <h4 *ngIf="i>1" class="card-title"> {{(forecast.list[i].dt_txt|date:'EEEE')}}  </h4>
+            <h4 *ngIf="i>1" class="card-title"> {{(f.dt_txt|date:'EEEE')}}  </h4>
+            <p class="card-title"> {{(f.dt_txt|date:'dd.MM.')}}  </p>
             <hr>
-            <img [src]="'http://openweathermap.org/img/w/'+forecast.list[i].weather[0].icon+'.png'">
+            <img [src]="'http://openweathermap.org/img/w/'+f.weather[0].icon+'.png'">
 
   
             
-            <h5 class="card-subtitle mb-2 ">{{(i==0)?'Current temperature: '+forecast.list[i].main.temp:''}}<i *ngIf="i==0">&#8451;</i></h5>
-            <h6 class="card-subtitle mb-2">Maximal temperature:{{forecast.list[i].main.temp_max}}<i>&#8451;</i></h6>
-            <h6 class="card-subtitle mb-2">Minimal temperature:{{forecast.list[i].main.temp_min}}<i>&#8451;</i></h6>
-            <h6 class="card-subtitle mb-2">Weather:{{forecast.list[i].weather[0].main}}</h6>
+            <h5 class="card-subtitle mb-2 ">{{(i==0)?'Current temperature: '+f.main.temp:''}}<i *ngIf="i==0">&#8451;</i></h5>
+            <h6 class="card-subtitle mb-2">Max temperature:{{f.main.temp_max}}<i>&#8451;</i></h6>
+            <h6 class="card-subtitle mb-2">Min temperature:{{f.main.temp_min}}<i>&#8451;</i></h6>
+            <h6 class="card-subtitle mb-2">Weather:{{f.weather[0].main}}</h6>
 
           </div>
           </div>

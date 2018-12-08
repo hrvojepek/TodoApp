@@ -11,7 +11,11 @@ import { Router } from "@angular/router";
 export class SigninComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(this.authService.isAuthenticated()){
+      this.router.navigate(["todo"]);
+    }
+  }
   onSignin(form: NgForm) {
     const email = form.value.email;
     const password = form.value.password;

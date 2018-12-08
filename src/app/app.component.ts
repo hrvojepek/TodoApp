@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
       storageBucket: "todo-a5bcb.appspot.com",
       messagingSenderId: "623438393035"
     });
+  
   }
   onLogout() {
     this.authService.logout();

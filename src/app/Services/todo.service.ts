@@ -38,14 +38,18 @@ export class TodoService {
   }
 
   fetchTodos() {
+    var currentDate=new Date();
     const token = this.authService.getToken();
     this.http
-      .get("https://todo-a5bcb.firebaseio.com/data.json")
+      .get("https://todo-a5bcb.firebaseio.com/data.json?auth="+token)
       .subscribe((todos: Todo[]) => {
         for(let todo of todos){
           todo.date=new Date(todo.date);
-          this.todos.push(todo);
+          if(todo.date.getDate()>=currentDate.getDate()){
+            this.todos.push(todo);
           console.log("return",todo)
+          }
+          
         }
          
       });
@@ -53,18 +57,19 @@ export class TodoService {
 
   
   putTodosDb(todo:Todo){
-    this.http.put("https://todo-a5bcb.firebaseio.com/data.json", this.returnTodo())
+    const token = this.authService.getToken();
+    this.http.put("https://todo-a5bcb.firebaseio.com/data.json?auth="+token, this.returnTodo())
     .subscribe(
       (data)=>{
         console.log("putt", data)
       }
     )
   }
-
-  deleteTodo(i: number) {
+  
+  deleteTodo(_key: number) {
     var k;
     this.todos.forEach((todo, id)=>{
-      if(todo.key==i){
+      if(todo.key==_key){
         k=id;
         this.todos.splice(k, 1)
       }
