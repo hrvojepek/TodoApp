@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  TemplateRef,
+  OnDestroy
+} from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Todo } from "./todo.model";
 import { TodoService } from "../Services/todo.service";
@@ -12,8 +18,8 @@ import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 })
 export class TodoComponent implements OnInit, OnDestroy {
   todos: Todo[] = [];
-  paginateTodos:Todo[];
- p=1;
+  paginateTodos: Todo[];
+  p = 1;
   modal: BsModalRef;
   key: number;
   currentDate = new Date();
@@ -28,11 +34,14 @@ export class TodoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.todos = this.todoService.returnTodo();
     this.todoService.fetchTodos();
-    
   }
- onSubmit() {
-    const value=this.todoForm.value;
-    const tmpTodo:Todo=new Todo(value.todo, value.date, Math.floor(Math.random() * 100))
+  onSubmit() {
+    const value = this.todoForm.value;
+    const tmpTodo: Todo = new Todo(
+      value.todo,
+      value.date,
+      Math.floor(Math.random() * 100)
+    );
     this.todoService.pushTodo(tmpTodo);
     this.todoService.putTodosDb(tmpTodo);
     console.log(this.todos);
@@ -44,12 +53,11 @@ export class TodoComponent implements OnInit, OnDestroy {
     console.log(id);
     this.modal = this.modalService.show(modal);
   }
-  closeModal(modal: TemplateRef<any>, ) {
-  this.modal.hide();
+  closeModal(modal: TemplateRef<any>) {
+    this.modal.hide();
   }
-  
-  ngOnDestroy(){
-    this.todos.length=0;
+
+  ngOnDestroy() {
+    this.todos.length = 0;
   }
- 
 }

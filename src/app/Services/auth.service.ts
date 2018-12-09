@@ -19,7 +19,7 @@ export class AuthService {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       .then(response => {
         this.router.navigate(["/todo"]);
         firebase
