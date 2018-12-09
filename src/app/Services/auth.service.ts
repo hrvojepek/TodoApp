@@ -19,7 +19,7 @@ export class AuthService {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      //firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       .then(response => {
         this.router.navigate(["/todo"]);
         firebase
@@ -27,13 +27,15 @@ export class AuthService {
           .currentUser.getIdToken()
           .then((token: string) => {
             this.token = token;
+            localStorage.setItem('token', this.getToken());
           });
       })
-      .catch(error => console.log(error));
+      .catch(error => {});
   }
 
   logout() {
     firebase.auth().signOut();
+    localStorage.removeItem('token');
     this.token = null;
   }
 
@@ -42,12 +44,19 @@ export class AuthService {
       .auth()
       .currentUser.getIdToken()
       .then((token: string) => {
-        this.token = token;
-      });
-    return this.token;
+        this.token = token; 
+      },
+      (err)=>{});
+      return this.token;
+      
   }
 
   isAuthenticated() {
-    return this.token != null;
+    if(localStorage.getItem('token')){
+      return true;
+    }else{
+      return false;
+    }
+    
   }
 }

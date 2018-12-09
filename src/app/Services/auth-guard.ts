@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.authService.isAuthenticated()) {
+    if (localStorage.getItem('token')) {
       return true;
     } else {
       this.router.navigate(["/"]);
