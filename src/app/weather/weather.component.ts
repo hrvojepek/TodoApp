@@ -17,6 +17,7 @@ export class WeatherComponent implements OnInit {
 
   getWeather(name: HTMLInputElement) {
     this.forecast.length=0;
+    this.forecast=[];
     this.spin=true;
     console.log(name.value);
     this.weatherService.fetchWeather(name.value);
@@ -37,6 +38,8 @@ export class WeatherComponent implements OnInit {
   }
  
   getWeatherLocation(){
+    this.forecast=[];
+    this.spin=true;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((p)=>{
         this.weatherService.fetchWeatherLatLon(p.coords.latitude, p.coords.longitude);
@@ -53,6 +56,9 @@ export class WeatherComponent implements OnInit {
 
     } else {
       alert("Geolocation is not supported by this browser.");
+    }
+    if(this.forecast.length!=0){
+      this.spin=false;
     }
     
     

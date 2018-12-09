@@ -27,6 +27,7 @@ export class AuthService {
           .currentUser.getIdToken()
           .then((token: string) => {
             this.token = token;
+            localStorage.setItem('token', this.token);
           });
       })
       .catch(error => console.log(error));
@@ -34,6 +35,7 @@ export class AuthService {
 
   logout() {
     firebase.auth().signOut();
+    localStorage.removeItem('token');
     this.token = null;
   }
 
@@ -48,6 +50,11 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return this.token != null;
+    if(localStorage.getItem('token')){
+      return true;
+    }else{
+      return false;
+    }
+    
   }
 }

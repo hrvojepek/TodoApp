@@ -45,5 +45,8 @@ export class TodoComponent implements OnInit {
     console.log(id);
     this.modal = this.modalService.show(modal);
   }
+  closeModal(modal: TemplateRef<any>, ) {
+  this.modal.hide();
+  }
  
 }

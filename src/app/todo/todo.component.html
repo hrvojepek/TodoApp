@@ -36,7 +36,8 @@
               </div>
               <div class="col-lg-3 col-md-3 col-sm-3 col-sm-2">
                   <button type="submit" [disabled]="!f.valid" class="add btn btn-primary">Add</button>
-              </div>
+
+                </div>
         </div>
     </form>
    
@@ -61,6 +62,13 @@
 
 
   <ng-template #modal>
+      <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"   
+  >
+    <span aria-hidden="true" (click)="closeModal()">&times;</span>
+  </button>
    <app-modal [id]="key"></app-modal>   
   </ng-template>
 

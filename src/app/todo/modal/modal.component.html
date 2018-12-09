@@ -1,13 +1,6 @@
-<div class="modal-header">
+<div class="modal-header" >
   <h4 class="modal-title pull-left">Edit</h4>
-  <button
-    type="button"
-    class="close pull-right"
-    aria-label="Close"
-    (click)="modalRef.hide()"
-  >
-    <span aria-hidden="true">&times;</span>
-  </button>
+  
 </div>
 <div class="modal-body">
   <form [formGroup]="editForm" (ngSubmit)="onEdit()">

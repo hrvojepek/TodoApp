@@ -26,8 +26,8 @@ export class WeatherService {
         (data: any[]) => {
           this.forecast = data;
         },
-        (err: HttpErrorResponse) => {
-          console.log(err);
+        (err) => {
+          
         }
       );
       
@@ -46,8 +46,9 @@ export class WeatherService {
     (data: any[]) => {
       this.forecast = data;
     },
-    (err: HttpErrorResponse) => {
-      console.log(err);
+    (err) => {
+      
+      
     }
   );
   }

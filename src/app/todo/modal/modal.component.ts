@@ -1,8 +1,8 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, TemplateRef } from "@angular/core";
 import { TodoService } from "../../Services/todo.service";
 import { Todo } from "../todo.model";
 import { NgForm, FormGroup, FormControl } from "@angular/forms";
-import { BsModalRef } from "ngx-bootstrap/modal";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 
 @Component({
   selector: "app-modal",
@@ -14,9 +14,9 @@ export class ModalComponent implements OnInit {
   editForm: FormGroup;
   currentDate = new Date();
   minDate = this.currentDate;
-  modalRef: BsModalRef;
+  @ViewChild('modalRef') modalRef: BsModalRef;
   editTodo: Todo;
-  constructor(private todoService: TodoService,) {}
+  constructor(private todoService: TodoService,private modalService:BsModalService) {}
 
   ngOnInit() {
     console.log(this.id);
@@ -36,7 +36,6 @@ export class ModalComponent implements OnInit {
     this.editTodo.todo=value.todo;
     this.editTodo.date=value.date;
     this.todoService.putTodosDb(this.editTodo);
-    this.modalRef.hide();
 
   }
   onEdit() {
@@ -45,7 +44,7 @@ export class ModalComponent implements OnInit {
     this.editTodo.date=value.date;
     this.todoService.updateTodo(this.id, this.editTodo);
     this.todoService.putTodosDb(this.editTodo);
-    this.modalRef.hide();
     
   }
+  
 }
