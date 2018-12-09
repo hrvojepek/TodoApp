@@ -40,15 +40,18 @@ export class AuthService {
   }
 
   getToken() {
+    if(!localStorage.getItem('token')){
     firebase
-      .auth()
+      .auth() 
       .currentUser.getIdToken()
       .then((token: string) => {
         this.token = token; 
       },
       (err)=>{});
       return this.token;
-      
+    }else{
+      return this.token=localStorage.getItem('token');
+    }
   }
 
   isAuthenticated() {

@@ -30,17 +30,22 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-md-4 col-sm-2 col-sm-2">
-        <button type="submit" [disabled]="!editForm.valid" class="add btn btn-primary float-left">
-          Update
-        </button>
-        <button
+      <div class="row b">
+        <div class="col-sm col-xs-10">
+            <button type="submit" [disabled]="!editForm.valid" class="add btn btn-primary mr-auto">
+                Update
+              </button>
+        </div>
+       <div class="col-sm col-xs-10">
+          <button
           type="button"
           [disabled]="!editForm.valid"
-          class="add btn btn-danger float-left"
+          class="add btn btn-danger mr-auto"
           (click)="onDelete()">
           Delete
         </button>
+       </div>
+        
       </div>
     </div>
   </form>
