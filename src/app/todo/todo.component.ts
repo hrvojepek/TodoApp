@@ -28,7 +28,6 @@ export class TodoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.todos = this.todoService.returnTodo();
     this.todoService.fetchTodos();
-
     
   }
  onSubmit() {
@@ -48,6 +47,7 @@ export class TodoComponent implements OnInit, OnDestroy {
   closeModal(modal: TemplateRef<any>, ) {
   this.modal.hide();
   }
+  
   ngOnDestroy(){
     this.todos.length=0;
   }
