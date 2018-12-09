@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
+import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Todo } from "./todo.model";
 import { TodoService } from "../Services/todo.service";
@@ -10,7 +10,7 @@ import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
   templateUrl: "./todo.component.html",
   styleUrls: ["./todo.component.css"]
 })
-export class TodoComponent implements OnInit {
+export class TodoComponent implements OnInit, OnDestroy {
   todos: Todo[] = [];
   paginateTodos:Todo[];
  p=1;
@@ -47,6 +47,9 @@ export class TodoComponent implements OnInit {
   }
   closeModal(modal: TemplateRef<any>, ) {
   this.modal.hide();
+  }
+  ngOnDestroy(){
+    this.todos.length=0;
   }
  
 }
