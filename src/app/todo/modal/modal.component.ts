@@ -36,6 +36,7 @@ export class ModalComponent implements OnInit {
     this.editTodo.todo=value.todo;
     this.editTodo.date=value.date;
     this.todoService.putTodosDb(this.editTodo);
+    this.todoService.onModalClose(this.modalRef);
 
   }
   onEdit() {
@@ -44,6 +45,8 @@ export class ModalComponent implements OnInit {
     this.editTodo.date=value.date;
     this.todoService.updateTodo(this.id, this.editTodo);
     this.todoService.putTodosDb(this.editTodo);
+    this.todoService.onModalClose(this.modalRef);
+
     
   }
   

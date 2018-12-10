@@ -10,7 +10,7 @@ import { splitClasses } from "@angular/compiler";
 @Injectable()
 export class TodoService {
   todos: Todo[] = [];
-
+  closeModal= new Subject<any>();
   index = new Subject<number>();
 
   constructor(private http: HttpClient, private authService: AuthService) {}
@@ -26,6 +26,9 @@ export class TodoService {
       });
     }
    
+  }
+  onModalClose(modal){
+    this.closeModal.next(modal);
   }
 
   returnTodo() {

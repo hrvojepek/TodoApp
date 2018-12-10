@@ -34,6 +34,11 @@ export class TodoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.todos = this.todoService.returnTodo();
     this.todoService.fetchTodos();
+    this.todoService.closeModal.subscribe(
+      ()=>{
+        this.modal.hide();
+      }
+    );
   }
   onSubmit() {
     const value = this.todoForm.value;
