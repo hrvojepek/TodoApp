@@ -23,12 +23,12 @@ export class WeatherComponent implements OnInit {
     this.weatherService.fetchWeather(name.value);
     var tmpforecast = this.weatherService.getForecast();
 
-    for (var i = 0; i < tmpforecast.list.length; i++) {
-      tmpforecast.list[i].dt_txt = new Date(tmpforecast.list[i].dt_txt);
+    for (var i = 0; i < tmpforecast["list"].length; i++) {
+      tmpforecast["list"][i].dt_txt = new Date(tmpforecast["list"][i].dt_txt);
     }
     console.log(tmpforecast);
-    for (let i = 0; i < tmpforecast.list.length; i += 8) {
-      this.forecast.push(tmpforecast.list[i]);
+    for (let i = 0; i < tmpforecast["list"].length; i += 8) {
+      this.forecast.push(tmpforecast["list"][i]);
     }
     console.log(this.forecast, "wwwww");
     if (this.forecast.length != 0) {
@@ -47,14 +47,15 @@ export class WeatherComponent implements OnInit {
         );
       });
       var tmpforecast = this.weatherService.getForecast();
-
-      for (var i = 0; i < tmpforecast.list.length; i++) {
-        tmpforecast.list[i].dt_txt = new Date(tmpforecast.list[i].dt_txt);
+      if(tmpforecast){
+      for (var i = 0; i < tmpforecast["list"].length; i++) {
+        tmpforecast["list"][i].dt_txt = new Date(tmpforecast["list"][i].dt_txt);
       }
       console.log(tmpforecast);
-      for (let i = 0; i < tmpforecast.list.length; i += 8) {
-        this.forecast.push(tmpforecast.list[i]);
+      for (let i = 0; i < tmpforecast["list"].length; i += 8) {
+        this.forecast.push(tmpforecast["list"][i]);
       }
+    }
     } else {
       alert("Geolocation is not supported by this browser.");
     }
