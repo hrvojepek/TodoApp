@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, TemplateRef } from "@angular/core";
 import { TodoService } from "../../Services/todo.service";
 import { Todo } from "../todo.model";
-import { NgForm, FormGroup, FormControl } from "@angular/forms";
+import { NgForm, FormGroup, FormControl, Validators } from "@angular/forms";
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 
 @Component({
@@ -45,9 +45,9 @@ export class ModalComponent implements OnInit {
     this.editTodo.date=value.date;
     this.todoService.updateTodo(this.id, this.editTodo);
     this.todoService.putTodosDb(this.editTodo);
-    this.todoService.onModalClose(this.modalRef);
-
-    
+    this.todoService.onModalClose(this.modalRef); 
   }
-  
+  closeModal(modal: TemplateRef<any>) {
+    this.todoService.onModalClose(this.modalRef);
+  }
 }

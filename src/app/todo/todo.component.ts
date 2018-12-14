@@ -58,9 +58,7 @@ export class TodoComponent implements OnInit, OnDestroy {
     console.log(id);
     this.modal = this.modalService.show(modal);
   }
-  closeModal(modal: TemplateRef<any>) {
-    this.modal.hide();
-  }
+
 
   ngOnDestroy() {
     this.todos.length = 0;

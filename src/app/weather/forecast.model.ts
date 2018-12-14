@@ -3,10 +3,12 @@ export class Forecast{
     icon:string;
     maxTemp:number;
     minTemp:number;
-    constructor(_date:Date, _icon:string, _max:number, _min){
+    weather:string
+    constructor(_date:Date, _icon:string, _max:number, _min:number, _weather:string){
         this.date=_date;
         this.icon=_icon;
         this.maxTemp=_max;
         this.minTemp=_min;
+        this.weather=_weather;
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 
 import { WeatherService } from "../Services/weather.service";
+import { Forecast } from "./forecast.model";
 
 @Component({
   selector: "app-weather",
@@ -8,7 +9,7 @@ import { WeatherService } from "../Services/weather.service";
   styleUrls: ["./weather.component.css"]
 })
 export class WeatherComponent implements OnInit {
-  forecast: any[] = [];
+  forecast: Forecast[] = [];
   spin: boolean = false;
   currentDate = new Date();
   constructor(private weatherService: WeatherService) {}
@@ -20,20 +21,24 @@ export class WeatherComponent implements OnInit {
     this.forecast = [];
     this.spin = true;
     console.log(name.value);
-    this.weatherService.fetchWeather(name.value);
-    var tmpforecast = this.weatherService.getForecast();
-
-    for (var i = 0; i < tmpforecast["list"].length; i++) {
-      tmpforecast["list"][i].dt_txt = new Date(tmpforecast["list"][i].dt_txt);
-    }
-    console.log(tmpforecast);
-    for (let i = 0; i < tmpforecast["list"].length; i += 8) {
-      this.forecast.push(tmpforecast["list"][i]);
-    }
-    console.log(this.forecast, "wwwww");
-    if (this.forecast.length != 0) {
-      this.spin = false;
-    }
+    this.weatherService.fetchWeather(name.value).subscribe(
+      data => {
+        for (let i = 0; i < data.list.length; i += 8) {
+          const tmpForecast = new Forecast(
+            new Date(data.list[i].dt_txt),
+            data.list[i].weather[0].icon,
+            data.list[i].main.temp_max,
+            data.list[i].main.temp_min,
+            data.list[i].main.weather
+          );
+          this.forecast.push(tmpForecast);
+        }
+        if (this.forecast.length != 0) {
+          this.spin = false;
+        }
+      },
+      err => {}
+    );
   }
 
   getWeatherLocation() {
@@ -41,26 +46,29 @@ export class WeatherComponent implements OnInit {
     this.spin = true;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(p => {
-        this.weatherService.fetchWeatherLatLon(
-          p.coords.latitude,
-          p.coords.longitude
-        );
+        this.weatherService
+          .fetchWeatherLatLon(p.coords.latitude, p.coords.longitude)
+          .subscribe(
+            data => {
+              for (let i = 0; i < data.list.length; i += 8) {
+                const tmpForecast = new Forecast(
+                  new Date(data.list[i].dt_txt),
+                  data.list[i].weather[0].icon,
+                  data.list[i].main.temp_max,
+                  data.list[i].main.temp_min,
+                  data.list[i].main.weather
+                );
+                this.forecast.push(tmpForecast);
+              }
+              if (this.forecast.length != 0) {
+                this.spin = false;
+              }
+            },
+            err => {}
+          );
       });
-      var tmpforecast = this.weatherService.getForecast();
-      if(tmpforecast){
-      for (var i = 0; i < tmpforecast["list"].length; i++) {
-        tmpforecast["list"][i].dt_txt = new Date(tmpforecast["list"][i].dt_txt);
-      }
-      console.log(tmpforecast);
-      for (let i = 0; i < tmpforecast["list"].length; i += 8) {
-        this.forecast.push(tmpforecast["list"][i]);
-      }
-    }
     } else {
       alert("Geolocation is not supported by this browser.");
-    }
-    if (this.forecast.length != 0) {
-      this.spin = false;
     }
   }
 }

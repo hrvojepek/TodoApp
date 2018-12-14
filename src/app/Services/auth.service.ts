@@ -30,7 +30,12 @@ export class AuthService {
             localStorage.setItem('token', this.getToken());
           });
       })
-      .catch(error => {});
+      .catch(error => {
+        var errMessagge=error.message;
+        
+          alert(errMessagge);
+       
+      });
   }
 
   logout() {
